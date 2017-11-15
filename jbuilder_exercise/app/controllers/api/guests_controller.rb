@@ -1,5 +1,6 @@
 class Api::GuestsController < ApplicationController
   def index
+    # @guests = Guest.find_by(age: [40, 50])
     @guests = Guest.all
     render :index
   end
