@@ -1919,7 +1919,7 @@ document.addEventListener("DOMContentLoaded", function () {
   window.fetchAllPokemon = _api_util.fetchAllPokemon;
   window.selectAllPokemon = _selectors.selectAllPokemon;
   // window.requestAllPokemon = requestAllPokemon;
-  _reactDom2.default.render(_react2.default.createElement(_root2.default, null), root);
+  _reactDom2.default.render(_react2.default.createElement(_root2.default, { store: store }), root);
 });
 
 /***/ }),
@@ -19225,10 +19225,11 @@ var _app2 = _interopRequireDefault(_app);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Root = function Root() {
+var Root = function Root(_ref) {
+  var store = _ref.store;
   return _react2.default.createElement(
     _reactRedux.Provider,
-    null,
+    { store: store },
     _react2.default.createElement(_app2.default, null)
   );
 };
@@ -21220,7 +21221,7 @@ var App = function App() {
     _react2.default.createElement(
       "h1",
       null,
-      "Pokedex"
+      "Pokedex goes here in the app"
     )
   );
 };
@@ -21369,6 +21370,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var entitiesReducer = (0, _redux.combineReducers)({
   pokemon: _pokemon_reducer2.default
+  // items: itemRed
 });
 
 exports.default = entitiesReducer;
@@ -21390,6 +21392,7 @@ var pokemonReducer = function pokemonReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var action = arguments[1];
 
+  Object.freeze(state);
   switch (action.type) {
     case _pokemon_actions.RECEIVE_ALL_POKEMON:
       var nextState = action.pokemon;
