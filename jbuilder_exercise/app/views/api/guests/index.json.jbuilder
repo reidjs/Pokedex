@@ -1,4 +1,6 @@
 json.array! @guests do |guest|
-  json.id guest.id
-  json.name guest.name
+  if guest.age > 40 && guest.age < 50
+    json.id guest.id
+    json.name guest.name
+  end
 end
