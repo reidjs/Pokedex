@@ -1,6 +1,6 @@
 //best practice for dealing with nextstate/newstate/etc.
 import { RECEIVE_ALL_POKEMON, RECEIVE_SINGLE_POKEMON } from '../actions/pokemon_actions';
-const _defaultState = {entities: {pokemon: {}}};
+const _defaultState = {pokemon: {}};
 let nextState;
 const pokemonReducer = (state = _defaultState, action) => {
   Object.freeze(state);
@@ -9,7 +9,7 @@ const pokemonReducer = (state = _defaultState, action) => {
       nextState = action.pokemon;
       return nextState;
     case RECEIVE_SINGLE_POKEMON:
-      console.log("single poke payload received: ", action.pokemon);
+      // console.log("single poke payload received: ", action.items);
       nextState = action.pokemon;
       return nextState;
     default:
