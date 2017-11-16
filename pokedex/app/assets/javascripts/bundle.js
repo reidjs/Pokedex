@@ -21358,8 +21358,9 @@ Object.defineProperty(exports, "__esModule", {
 
 var _pokemon_actions = __webpack_require__(71);
 
+var _defaultState = { entities: { pokemon: {} } };
 var pokemonReducer = function pokemonReducer() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : _defaultState;
   var action = arguments[1];
 
   Object.freeze(state);
@@ -22451,7 +22452,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    pokemon: state.entities.pokemon
+    pokemon: (0, _selectors.selectAllPokemon)(state)
   };
 };
 
@@ -22481,6 +22482,10 @@ var _createClass = function () { function defineProperties(target, props) { for 
 var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
+
+var _pokemon_index_item = __webpack_require__(113);
+
+var _pokemon_index_item2 = _interopRequireDefault(_pokemon_index_item);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -22512,11 +22517,13 @@ var PokemonIndex = function (_React$Component) {
     value: function render() {
       console.log(this.props.pokemon);
 
+      // let listPokes = this.props.pokemon.map((poke) =>
       var listPokes = this.props.pokemon.map(function (poke) {
-        return _react2.default.createElement(
-          'li',
-          null,
-          poke.name
+        return (
+          // <li>{poke.name}
+          //
+          // </li>
+          _react2.default.createElement(_pokemon_index_item2.default, { poke: poke })
         );
       });
       return _react2.default.createElement(
@@ -22535,6 +22542,39 @@ var PokemonIndex = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = PokemonIndex;
+
+/***/ }),
+/* 113 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(2);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var PokemonIndexItem = function PokemonIndexItem(_ref) {
+  var poke = _ref.poke;
+  return _react2.default.createElement(
+    "div",
+    null,
+    _react2.default.createElement(
+      "li",
+      null,
+      _react2.default.createElement("img", { className: "poke-pic", src: poke.image_url }),
+      poke.name
+    )
+  );
+};
+
+exports.default = PokemonIndexItem;
 
 /***/ })
 /******/ ]);

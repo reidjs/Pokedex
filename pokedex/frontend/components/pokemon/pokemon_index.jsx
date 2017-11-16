@@ -1,5 +1,5 @@
 import React from 'react';
-
+import PokemonIndexItem from './pokemon_index_item';
 class PokemonIndex extends React.Component {
   constructor(props) {
     super(props);
@@ -13,13 +13,17 @@ class PokemonIndex extends React.Component {
   render() {
     console.log(this.props.pokemon);
 
+    // let listPokes = this.props.pokemon.map((poke) =>
     let listPokes = this.props.pokemon.map((poke) =>
-      <li>{poke.name}</li>
+      // <li>{poke.name}
+      //
+      // </li>
+      <PokemonIndexItem poke={poke} />
     );
     return (
       <div>
         <ul>
-          {listPokes}
+          { listPokes }
         </ul>
       </div>
     );
