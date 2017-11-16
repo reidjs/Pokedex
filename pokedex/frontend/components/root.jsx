@@ -9,12 +9,12 @@ const Root = ({ store }) => (
     <Provider store={store}>
       <HashRouter>
         <Switch>
-          <Route exact path="/" component={PokemonIndexContainer} />
-          <Route path="/pokemon/:pokemonId" component={PokemonDetailContainer} />
+          <Route path="/" component={PokemonIndexContainer} />
         </Switch>
       </HashRouter>
     </Provider>
 );
+// <Route path="/pokemon/:pokemonId" component={PokemonDetailContainer} />
 // <PokemonIndexContainer />
 
 export default Root;

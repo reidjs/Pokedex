@@ -21022,12 +21022,12 @@ var Root = function Root(_ref) {
       _react2.default.createElement(
         _reactRouterDom.Switch,
         null,
-        _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _pokemon_index_container2.default }),
-        _react2.default.createElement(_reactRouterDom.Route, { path: '/pokemon/:pokemonId', component: _pokemon_detail_container2.default })
+        _react2.default.createElement(_reactRouterDom.Route, { path: '/', component: _pokemon_index_container2.default })
       )
     )
   );
 };
+// <Route path="/pokemon/:pokemonId" component={PokemonDetailContainer} />
 // <PokemonIndexContainer />
 
 // import App from './app';
@@ -23715,6 +23715,7 @@ var fetchAllPokemon = exports.fetchAllPokemon = function fetchAllPokemon() {
 };
 
 var fetchSinglePokemon = exports.fetchSinglePokemon = function fetchSinglePokemon(id) {
+  console.log("Making GET request to /api/pokemon/" + id);
   return $.ajax({
     url: "/api/pokemon/" + id,
     method: "GET"
@@ -23741,6 +23742,16 @@ var _react2 = _interopRequireDefault(_react);
 var _pokemon_index_item = __webpack_require__(125);
 
 var _pokemon_index_item2 = _interopRequireDefault(_pokemon_index_item);
+
+var _pokemon_detail_container = __webpack_require__(158);
+
+var _pokemon_detail_container2 = _interopRequireDefault(_pokemon_detail_container);
+
+var _pokemon_detail = __webpack_require__(159);
+
+var _pokemon_detail2 = _interopRequireDefault(_pokemon_detail);
+
+var _reactRouterDom = __webpack_require__(50);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -23780,6 +23791,7 @@ var PokemonIndex = function (_React$Component) {
       return _react2.default.createElement(
         'section',
         { className: 'pokedex' },
+        _react2.default.createElement(_reactRouterDom.Route, { path: '/pokemon/:pokemonId', component: _pokemon_detail_container2.default }),
         _react2.default.createElement(
           'ul',
           null,
@@ -27058,15 +27070,27 @@ var PokemonDetail = function (_React$Component) {
     _classCallCheck(this, PokemonDetail);
 
     return _possibleConstructorReturn(this, (PokemonDetail.__proto__ || Object.getPrototypeOf(PokemonDetail)).call(this, props));
+    // console.log(props);
   }
 
   _createClass(PokemonDetail, [{
-    key: 'render',
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.props.requestSinglePokemon(this.props.match.params.pokemonId);
+    }
+  }, {
+    key: "componentWillReceive",
+    value: function componentWillReceive(newProps) {
+      if (newProps.pokemonId != this.props.pokemonId) this.props.requestSinglePokemon(newProps.match.params.pokemonId);
+    }
+  }, {
+    key: "render",
     value: function render() {
       return _react2.default.createElement(
-        'div',
+        "div",
         null,
-        'Show pokemon detail'
+        "Show detail",
+        _react2.default.createElement("img", { className: "poke-show-pic", src: this.props.pokemon.image_url })
       );
     }
   }]);
