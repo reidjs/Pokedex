@@ -21403,6 +21403,7 @@ var _pokemon_actions = __webpack_require__(71);
 
 var _defaultState = { entities: { pokemon: {} } }; //best practice for dealing with nextstate/newstate/etc.
 
+var nextState = void 0;
 var pokemonReducer = function pokemonReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : _defaultState;
   var action = arguments[1];
@@ -21410,11 +21411,11 @@ var pokemonReducer = function pokemonReducer() {
   Object.freeze(state);
   switch (action.type) {
     case _pokemon_actions.RECEIVE_ALL_POKEMON:
-      var nextState = action.pokemon;
+      nextState = action.pokemon;
       return nextState;
     case _pokemon_actions.RECEIVE_SINGLE_POKEMON:
-      var newState = action.pokemon;
-      return newState;
+      nextState = action.pokemon;
+      return nextState;
     default:
       return state;
   }
