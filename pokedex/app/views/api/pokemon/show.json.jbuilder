@@ -1,5 +1,5 @@
 json.pokemon do
-  json.extract! @pokemon, :id, :name, :attack
+  json.extract! @pokemon, :id, :name, :attack, :defense, :image_url
 end
 # json.id @pokemon.id
 # json.name @pokemon.name
