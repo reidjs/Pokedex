@@ -4,7 +4,7 @@ import itemsReducer from './items_reducer';
 const entitiesReducer = combineReducers({
   pokemon: pokemonReducer,
   items: itemsReducer,
-  // items: itemRed
+
 });
 
 export default entitiesReducer;
