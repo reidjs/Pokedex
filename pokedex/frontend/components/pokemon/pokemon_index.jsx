@@ -23,11 +23,11 @@ class PokemonIndex extends React.Component {
     // let listPokes = this.props.pokemon.map((poke) =>
     return (
       <section className="pokedex">
-        <Route path="/pokemon/:pokemonId" component={PokemonDetailContainer} />
         <ul>
-          { pokemonItems } 
+          { pokemonItems }
         </ul>
 
+        <Route path="/pokemon/:pokemonId" component={PokemonDetailContainer} />
       </section>
     );
   }

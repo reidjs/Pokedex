@@ -5,16 +5,19 @@ class PokemonDetail extends React.Component {
     // console.log(props);
   }
   componentDidMount() {
+    // console.log(this.props.match.params.pokemonId);
     this.props.requestSinglePokemon(this.props.match.params.pokemonId);
   }
   componentWillReceive(newProps) {
-    if (newProps.pokemonId != this.props.pokemonId)
+    console.log('newprop', newProps, this.props);
+    if (newProps.pokemonId !== this.props.pokemonId)
       this.props.requestSinglePokemon(newProps.match.params.pokemonId);
   }
   render() {
     return (
       <div>
         Show detail
+        {console.log("detail pokemon: ", this.props.pokemon)}
         <img className="poke-show-pic" src={this.props.pokemon.image_url} />
       </div>
     );

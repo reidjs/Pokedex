@@ -9,6 +9,7 @@ const pokemonReducer = (state = _defaultState, action) => {
       nextState = action.pokemon;
       return nextState;
     case RECEIVE_SINGLE_POKEMON:
+      console.log("single poke payload received: ", action.pokemon);
       nextState = action.pokemon;
       return nextState;
     default:

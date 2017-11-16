@@ -10,10 +10,12 @@ const Root = ({ store }) => (
       <HashRouter>
         <Switch>
           <Route path="/" component={PokemonIndexContainer} />
+
         </Switch>
       </HashRouter>
     </Provider>
 );
+// <Route path="/pokemon/:pokemonId" component={PokemonDetailContainer} />
 // <Route path="/pokemon/:pokemonId" component={PokemonDetailContainer} />
 // <PokemonIndexContainer />
 
