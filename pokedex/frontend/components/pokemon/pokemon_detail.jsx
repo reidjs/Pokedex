@@ -14,6 +14,11 @@ class PokemonDetail extends React.Component {
       this.props.requestSinglePokemon(newProps.match.params.pokemonId);
   }
   render() {
+    if (this.props.pokemon === undefined) {
+      return (
+        <div>Loading</div>
+      );
+    }
     return (
       <div>
         Show detail

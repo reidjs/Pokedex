@@ -3,6 +3,8 @@ import PokemonIndexItem from './pokemon_index_item';
 import PokemonDetailContainer from './pokemon_detail_container';
 import PokemonDetail from './pokemon_detail';
 import { Route } from 'react-router-dom';
+import PokemonIndexContainer from './pokemon_index_container';
+
 
 class PokemonIndex extends React.Component {
   constructor(props) {
@@ -26,10 +28,11 @@ class PokemonIndex extends React.Component {
         <ul>
           { pokemonItems }
         </ul>
-
         <Route path="/pokemon/:pokemonId" component={PokemonDetailContainer} />
+
       </section>
     );
   }
 }
+// <Route exact path="/" component={PokemonIndexContainer} />
 export default PokemonIndex;
