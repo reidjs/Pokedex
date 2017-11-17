@@ -7,6 +7,11 @@ export const selectAllPokemon = (state) => {
   // console.log(vals);
   return vals;
 };
+export const selectAllItems = (state) => {
+  let items = state.entities.items;
+  let vals = values(items);
+  return vals;
+};
 // export const selectSinglePokemon = (state, id) => {
 //   let pokemon = state.entities.pokemon;
 //   // console.log(state);

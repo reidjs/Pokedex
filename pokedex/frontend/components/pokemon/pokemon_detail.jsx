@@ -25,11 +25,21 @@ class PokemonDetail extends React.Component {
         <div>Loading</div>
       );
     }
+    let itemItems = "No items";
+    if (this.props.items !== undefined) {
+      console.log(this.props.items);
+      itemItems = this.props.items.map(item =>
+        <li>{item.name}</li>
+      );
+    }
+
     return (
       <div>
-        Show detail
         {console.log("show items: ", this.props.items)}
         <img className="poke-show-pic" src={this.props.pokemon.image_url} />
+        <ul>
+          { itemItems }
+        </ul>
       </div>
     );
   }

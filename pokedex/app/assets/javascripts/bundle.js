@@ -3076,7 +3076,7 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.selectAllPokemon = undefined;
+exports.selectAllItems = exports.selectAllPokemon = undefined;
 
 var _values = __webpack_require__(100);
 
@@ -3090,6 +3090,11 @@ var selectAllPokemon = exports.selectAllPokemon = function selectAllPokemon(stat
   // let keys = Object.keys(pokemon);
   var vals = (0, _values2.default)(pokemon);
   // console.log(vals);
+  return vals;
+};
+var selectAllItems = exports.selectAllItems = function selectAllItems(state) {
+  var items = state.entities.items;
+  var vals = (0, _values2.default)(items);
   return vals;
 };
 // export const selectSinglePokemon = (state, id) => {
@@ -3739,7 +3744,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var mapStateToProps = function mapStateToProps(state, ownProps) {
   return {
     pokemon: state.entities.pokemon[ownProps.match.params.pokemonId],
-    items: state.entities.items
+    items: (0, _selectors.selectAllItems)(state)
   };
 };
 
@@ -3817,12 +3822,28 @@ var PokemonDetail = function (_React$Component) {
           'Loading'
         );
       }
+      var itemItems = "No items";
+      if (this.props.items !== undefined) {
+        console.log(this.props.items);
+        itemItems = this.props.items.map(function (item) {
+          return _react2.default.createElement(
+            'li',
+            null,
+            item.name
+          );
+        });
+      }
+
       return _react2.default.createElement(
         'div',
         null,
-        'Show detail',
         console.log("show items: ", this.props.items),
-        _react2.default.createElement('img', { className: 'poke-show-pic', src: this.props.pokemon.image_url })
+        _react2.default.createElement('img', { className: 'poke-show-pic', src: this.props.pokemon.image_url }),
+        _react2.default.createElement(
+          'ul',
+          null,
+          itemItems
+        )
       );
     }
   }]);
