@@ -1,8 +1,16 @@
 import React from 'react';
+class ItemDetail extends React.Component {
+  constructor(props) {
+    super(props);
 
-const ItemDetail = ( { item }) => (
-
-  <div>{console.log('Item received: ', item)}</div>
-);
+  }
+  render() {
+    return (
+      <div>asdf{console.log('Item received: ', this.props.item)}</div>
+    );
+  }
+}
+// const ItemDetail = ({ props }) => (
+// );
 
 export default ItemDetail;

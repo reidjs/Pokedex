@@ -2,25 +2,18 @@ import { RECEIVE_SINGLE_POKEMON } from '../actions/pokemon_actions';
 import merge from 'lodash/merge';
 const _defaultState = {};
 
-// const RECEIVE_ITEMS = "RECEIVE_ITEMS";
-//fails silently
 const itemsReducer = (state = _defaultState, action) => {
   Object.freeze(state);
-  // action = {
-  //   type: RECEIVE_SINGLE_POKEMON,
-  //   items: {'asdf': 5}
-  // };
-  // debugger
   switch(action.type) {
     case RECEIVE_SINGLE_POKEMON:
-      console.log('oldstate:', state);
-      console.log('SUCCESS! single poke items:',action.items);
-      let nextState = merge({}, state, action.items);
-      // debugger
+      // let nextState = merge({}, state, action.items);
+      let nextState = merge({}, state);
+      action.items.forEach((el) => {
+        nextState[el.id] = el;
+      });
+      // let nextState = merge([], state, action.items);
       return nextState;
     default:
-      // debugger
-      console.log('items reducer hit default');
       return state;
   }
 };

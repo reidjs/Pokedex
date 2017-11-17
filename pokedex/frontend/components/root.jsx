@@ -14,8 +14,5 @@ const Root = ({ store }) => (
       </HashRouter>
     </Provider>
 );
-// <Route path="/pokemon/:pokemonId" component={PokemonDetailContainer} />
-// <Route path="/pokemon/:pokemonId" component={PokemonDetailContainer} />
-// <PokemonIndexContainer />
 
 export default Root;

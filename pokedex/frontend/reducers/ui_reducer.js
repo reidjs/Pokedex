@@ -1,3 +1,4 @@
+//UNUSED
 import { RECEIVE_SINGLE_POKEMON } from './pokemon_reducer';
 const _defaultState = 0; //pokeDisplay id #
 

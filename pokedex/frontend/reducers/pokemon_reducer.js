@@ -6,12 +6,11 @@ let nextState;
 const pokemonReducer = (state = _defaultState, action) => {
   Object.freeze(state);
   switch(action.type) {
+    //notice action.pokemon is a payload, NOT just a list of pokemon necessarily
     case RECEIVE_ALL_POKEMON:
       nextState = merge({}, state, action.pokemon);
       return nextState;
     case RECEIVE_SINGLE_POKEMON:
-      // console.log("single poke payload received: ", action.items);
-      console.log('reducer received single poke payload', action);
       nextState = merge({}, state, action.pokemon);
       return nextState;
     default:

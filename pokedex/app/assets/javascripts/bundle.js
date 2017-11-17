@@ -744,12 +744,16 @@ var receiveAllPokemon = exports.receiveAllPokemon = function receiveAllPokemon(p
   };
 };
 
-var receiveSinglePokemon = exports.receiveSinglePokemon = function receiveSinglePokemon(pokemon) {
+//destructure pokemon: pokemon.items and items: pokemon.items
+var receiveSinglePokemon = exports.receiveSinglePokemon = function receiveSinglePokemon(_ref) {
+  var pokemon = _ref.pokemon,
+      items = _ref.items;
+
   // debugger
   return {
     type: RECEIVE_SINGLE_POKEMON,
-    pokemon: pokemon.pokemon,
-    items: pokemon.items
+    pokemon: pokemon,
+    items: items
   };
 };
 
@@ -765,10 +769,10 @@ var requestAllPokemon = exports.requestAllPokemon = function requestAllPokemon()
 
 var requestSinglePokemon = exports.requestSinglePokemon = function requestSinglePokemon(id) {
   return function (dispatch) {
-    return APIUtil.fetchSinglePokemon(id).then(function (pokemon) {
+    return APIUtil.fetchSinglePokemon(id).then(function (response) {
       // debugger
-      console.log('Going to dispatch: ', pokemon);
-      dispatch(receiveSinglePokemon(pokemon));
+      // console.log('Going to dispatch: ', pokemon);
+      dispatch(receiveSinglePokemon(response));
     });
   };
 };
@@ -3442,10 +3446,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var selectAllPokemon = exports.selectAllPokemon = function selectAllPokemon(state) {
   var pokemon = state.entities.pokemon;
-  // console.log(state);
-  // let keys = Object.keys(pokemon);
   var vals = (0, _values2.default)(pokemon);
-  // console.log(vals);
   return vals;
 };
 var selectAllItems = exports.selectAllItems = function selectAllItems(state) {
@@ -3454,18 +3455,16 @@ var selectAllItems = exports.selectAllItems = function selectAllItems(state) {
   return vals;
 };
 var selectSingleItem = exports.selectSingleItem = function selectSingleItem(state, itemId) {
-  // let items = state.entities.items
-  // Object.keys(items)
-  // let vals = values(items)
-  // // console.log();
-  //
-  // debugger
-  // return item;
-  // console.log(state.entities.items);
+
   var items = state.entities.items;
   var itemsArr = (0, _values2.default)(items);
   // debugger
-  return itemsArr.forEach(function (item) {
+  // for (let i = 0; i < itemsArr.length; i++) {
+  //   if (itemsArr[i].id == itemId) {
+  //     return itemsArr[i]
+  //   }
+  // }
+  itemsArr.forEach(function (item) {
     // console.log(item.id, 'looking for', itemId);
     //WARNING: comparing number to string
     if (item.id == itemId) {
@@ -3473,24 +3472,7 @@ var selectSingleItem = exports.selectSingleItem = function selectSingleItem(stat
       return item;
     }
   });
-  // console.log('No item found');
 };
-// export const selectSinglePokemon = (state, id) => {
-//   let pokemon = state.entities.pokemon;
-//   // console.log(state);
-//   // let keys = Object.keys(pokemon);
-//   let vals = values(pokemon);
-//   // console.log(vals);
-//   return vals;
-// };
-// export const selectSinglePokemon = (state) => {
-//   let pokemon = state.entities.pokemon;
-//   // console.log(state);
-//   // let keys = Object.keys(pokemon);
-//   let vals = values(pokemon);
-//   // console.log(vals);
-//   return vals;
-// };
 
 /***/ }),
 /* 60 */
@@ -4515,12 +4497,11 @@ var pokemonReducer = function pokemonReducer() {
 
   Object.freeze(state);
   switch (action.type) {
+    //notice action.pokemon is a payload, NOT just a list of pokemon necessarily
     case _pokemon_actions.RECEIVE_ALL_POKEMON:
       nextState = (0, _merge2.default)({}, state, action.pokemon);
       return nextState;
     case _pokemon_actions.RECEIVE_SINGLE_POKEMON:
-      // console.log("single poke payload received: ", action.items);
-      console.log('reducer received single poke payload', action);
       nextState = (0, _merge2.default)({}, state, action.pokemon);
       return nextState;
     default:
@@ -22080,10 +22061,6 @@ var Root = function Root(_ref) {
     )
   );
 };
-// <Route path="/pokemon/:pokemonId" component={PokemonDetailContainer} />
-// <Route path="/pokemon/:pokemonId" component={PokemonDetailContainer} />
-// <PokemonIndexContainer />
-
 // import App from './app';
 exports.default = Root;
 
@@ -27457,7 +27434,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var rootReducer = (0, _redux.combineReducers)({
   entities: _entities_reducer2.default,
-  ui: _ui_reducer2.default
+  ui: _ui_reducer2.default //unused
 });
 
 exports.default = rootReducer;
@@ -27485,10 +27462,10 @@ var _items_reducer2 = _interopRequireDefault(_items_reducer);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+//Send items to itemsReducer, pokemon to pokemonReducer
 var entitiesReducer = (0, _redux.combineReducers)({
   items: _items_reducer2.default,
   pokemon: _pokemon_reducer2.default
-
 });
 
 exports.default = entitiesReducer;
@@ -29278,28 +29255,21 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var _defaultState = {};
 
-// const RECEIVE_ITEMS = "RECEIVE_ITEMS";
-//fails silently
 var itemsReducer = function itemsReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : _defaultState;
   var action = arguments[1];
 
   Object.freeze(state);
-  // action = {
-  //   type: RECEIVE_SINGLE_POKEMON,
-  //   items: {'asdf': 5}
-  // };
-  // debugger
   switch (action.type) {
     case _pokemon_actions.RECEIVE_SINGLE_POKEMON:
-      console.log('oldstate:', state);
-      console.log('SUCCESS! single poke items:', action.items);
-      var nextState = (0, _merge2.default)({}, state, action.items);
-      // debugger
+      // let nextState = merge({}, state, action.items);
+      var nextState = (0, _merge2.default)({}, state);
+      action.items.forEach(function (el) {
+        nextState[el.id] = el;
+      });
+      // let nextState = merge([], state, action.items);
       return nextState;
     default:
-      // debugger
-      console.log('items reducer hit default');
       return state;
   }
 };
@@ -29323,6 +29293,7 @@ var _defaultState = 0; //pokeDisplay id #
 
 // const RECEIVE_ITEMS = "RECEIVE_ITEMS";
 
+//UNUSED
 var uiReducer = function uiReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : _defaultState;
   var action = arguments[1];
@@ -29400,18 +29371,13 @@ var _selectors = __webpack_require__(59);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var mapStateToProps = function mapStateToProps(state, ownProps) {
-  console.log('Map state to props: ', state.entities.items, ownProps.match.params.itemId);
-  // console.log(selectSingleItem(state, ownProps.match.params.itemId));
+  console.log(state.entities.items);
   return {
-    // item: state.entities.items[ownProps.match.params.itemId]
     item: (0, _selectors.selectSingleItem)(state, ownProps.match.params.itemId)
   };
 };
-//unsure if this will be used
-// const mapDispatchToProps = dispatch => ({
-//   requestItem: (id) => dispatch(requestItem(id))
-// });
-exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps)(_item_detail2.default));
+
+exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, null)(_item_detail2.default));
 
 /***/ }),
 /* 231 */
@@ -29424,20 +29390,45 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var ItemDetail = function ItemDetail(_ref) {
-  var item = _ref.item;
-  return _react2.default.createElement(
-    'div',
-    null,
-    console.log('Item received: ', item)
-  );
-};
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var ItemDetail = function (_React$Component) {
+  _inherits(ItemDetail, _React$Component);
+
+  function ItemDetail(props) {
+    _classCallCheck(this, ItemDetail);
+
+    return _possibleConstructorReturn(this, (ItemDetail.__proto__ || Object.getPrototypeOf(ItemDetail)).call(this, props));
+  }
+
+  _createClass(ItemDetail, [{
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        null,
+        'asdf',
+        console.log('Item received: ', this.props.item)
+      );
+    }
+  }]);
+
+  return ItemDetail;
+}(_react2.default.Component);
+// const ItemDetail = ({ props }) => (
+// );
 
 exports.default = ItemDetail;
 

@@ -7,12 +7,13 @@ export const receiveAllPokemon = (pokemon) => ({
   pokemon
 });
 
-export const receiveSinglePokemon = (pokemon) => {
+//destructure pokemon: pokemon.items and items: pokemon.items
+export const receiveSinglePokemon = ({ pokemon, items}) => {
   // debugger
   return ({
     type: RECEIVE_SINGLE_POKEMON,
-    pokemon: pokemon.pokemon,
-    items: pokemon.items
+    pokemon,
+    items
   });
 };
 
@@ -25,9 +26,9 @@ export const requestAllPokemon = () => (dispatch) => (
 
 export const requestSinglePokemon = (id) => (dispatch) => (
   APIUtil.fetchSinglePokemon(id)
-    .then(pokemon => {
+    .then(response => {
       // debugger
-      console.log('Going to dispatch: ', pokemon);
-       dispatch(receiveSinglePokemon(pokemon));
+      // console.log('Going to dispatch: ', pokemon);
+       dispatch(receiveSinglePokemon(response));
      })
 );
