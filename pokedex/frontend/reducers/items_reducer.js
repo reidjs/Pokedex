@@ -1,4 +1,5 @@
 import { RECEIVE_SINGLE_POKEMON } from '../actions/pokemon_actions';
+import merge from 'lodash/merge';
 const _defaultState = {items: {}};
 
 // const RECEIVE_ITEMS = "RECEIVE_ITEMS";
@@ -12,8 +13,9 @@ const itemsReducer = (state = _defaultState, action) => {
   // debugger
   switch(action.type) {
     case RECEIVE_SINGLE_POKEMON:
+      console.log('oldstate:', state);
       console.log('SUCCESS! single poke items:',action.items);
-      let nextState = action.items;
+      let nextState = merge({}, state, action.items);
       // debugger
       return nextState;
     default:

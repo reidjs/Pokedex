@@ -7,7 +7,8 @@ import { withRouter } from 'react-router-dom';
 import PokemonDetail from './pokemon_detail';
 //Issue: we are passing down ALL pokemon instead of just single show pokemon
 const mapStateToProps = (state, ownProps) => ({
-  pokemon: state.entities.pokemon[ownProps.match.params.pokemonId]
+  pokemon: state.entities.pokemon[ownProps.match.params.pokemonId],
+  items: state.entities.items
 });
 
 const mapDispatchToProps = dispatch => ({

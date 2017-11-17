@@ -27,6 +27,7 @@ export const requestSinglePokemon = (id) => (dispatch) => (
   APIUtil.fetchSinglePokemon(id)
     .then(pokemon => {
       // debugger
+      console.log('Going to dispatch: ', pokemon);
        dispatch(receiveSinglePokemon(pokemon));
      })
 );
