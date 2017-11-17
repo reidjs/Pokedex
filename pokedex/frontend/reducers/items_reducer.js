@@ -1,6 +1,6 @@
 import { RECEIVE_SINGLE_POKEMON } from '../actions/pokemon_actions';
 import merge from 'lodash/merge';
-const _defaultState = {items: {}};
+const _defaultState = {};
 
 // const RECEIVE_ITEMS = "RECEIVE_ITEMS";
 //fails silently

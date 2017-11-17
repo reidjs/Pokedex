@@ -1,7 +1,7 @@
 //best practice for dealing with nextstate/newstate/etc.
 import { RECEIVE_ALL_POKEMON, RECEIVE_SINGLE_POKEMON } from '../actions/pokemon_actions';
 import merge from 'lodash/merge';
-const _defaultState = {pokemon: {}};
+const _defaultState = {};
 let nextState;
 const pokemonReducer = (state = _defaultState, action) => {
   Object.freeze(state);
